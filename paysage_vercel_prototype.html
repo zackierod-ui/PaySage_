@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PaySage MSME Onboarding</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #f6d365, #c4fbc1, #a0c4ff);
+            margin: 0; padding: 0;
+        }
+        .container {
+            max-width: 500px;
+            background: #fff;
+            padding: 20px;
+            margin: 50px auto;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #007bff;
+        }
+        input, button {
+            width: 100%;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 8px;
+            border: 1px solid #ddd;
+            font-size: 16px;
+        }
+        .progress {
+            width: 100%;
+            background: #ddd;
+            border-radius: 20px;
+            margin: 20px 0;
+        }
+        .progress-bar {
+            width: 0;
+            height: 20px;
+            background: #28a745;
+            border-radius: 20px;
+        }
+        #qr-section {
+            display: none;
+            text-align: center;
+        }
+        #qr-section img {
+            width: 200px;
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>PaySage Onboarding</h1>
+    <div id="form-section">
+        <input type="text" id="name" placeholder="Enter Name">
+        <input type="file" id="mykad" accept="image/*">
+        <input type="file" id="ssm" accept="image/*">
+        <button onclick="startOnboarding()" style="background:#ffc107">Submit</button>
+    </div>
+    <div id="progress-section" style="display:none;">
+        <p>Onboarding in Progress...</p>
+        <div class="progress">
+            <div class="progress-bar" id="progress-bar"></div>
+        </div>
+    </div>
+    <div id="qr-section">
+        <p style="color:green; font-size:20px;">✅ Onboarding Complete!</p>
+        <p>Your DuitNow QR Code:</p>
+        <img src="https://api.qrserver.com/v1/create-qr-code/?data=PaySage-DuitNow-Mock-QR&size=200x200" alt="QR Code">
+    </div>
+</div>
+
+<script>
+    function startOnboarding() {
+        document.getElementById('form-section').style.display = 'none';
+        document.getElementById('progress-section').style.display = 'block';
+        let progress = 0;
+        let interval = setInterval(() => {
+            progress += 10;
+            document.getElementById('progress-bar').style.width = progress + '%';
+            if (progress >= 100) {
+                clearInterval(interval);
+                document.getElementById('progress-section').style.display = 'none';
+                document.getElementById('qr-section').style.display = 'block';
+            }
+        }, 300);
+    }
+</script>
+</body>
+</html>
